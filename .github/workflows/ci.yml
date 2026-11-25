@@ -1,0 +1,32 @@
+name: Open Agentic Web CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  verify-suite:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify suite layout & Python syntax
+        run: |
+          python - << 'EOF'
+          import py_compile
+          from pathlib import Path
+
+          root = Path(".")
+          py_files = list(root.rglob("*.py"))
+          for pf in py_files:
+              py_compile.compile(str(pf), doraise=True)
+          html_files = list(root.rglob("*.html"))
+          js_files = list(root.rglob("*.js")) + list(root.rglob("*.mjs"))
+          print(f"Verified {len(py_files)} Python, {len(html_files)} HTML, {len(js_files)} JS/MJS files.")
+          assert len(html_files) >= 1, "Expected HTML entrypoints in suite."
+          EOF

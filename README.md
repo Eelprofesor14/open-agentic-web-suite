@@ -1,5 +1,9 @@
 # Open Agentic Web Suite (MVP Profile 0.2)
 
+[![Open Agentic Web CI](https://github.com/Eelprofesor14/open-agentic-web-suite/actions/workflows/ci.yml/badge.svg)](https://github.com/Eelprofesor14/open-agentic-web-suite/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/Eelprofesor14/open-agentic-web-suite?color=20BEFF)](https://github.com/Eelprofesor14/open-agentic-web-suite/releases)
+
+
 **Author:** [Santiago Zazo](https://github.com/Eelprofesor14) • [LinkedIn](https://www.linkedin.com/in/santiago-zazo) • [Kaggle](https://www.kaggle.com/santiagozazo)
 
 Three interoperable, privacy-first web applications built for the [Open Agentic Web Challenge](https://cognizant-agenticweb.devpost.com/) (Cognizant + MIT NANDA + Mozilla + AWS), achieving full conformance with **Open Agentic Web MVP Profile 0.2**.
