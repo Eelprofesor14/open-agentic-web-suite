@@ -187,9 +187,7 @@
           const res = await runtime.invokeAction("website_check_peer_steel_prices");
           if (!res.ok) return `Peer lookup did not complete: ${res.reason}`;
           const rows = res.materials.map(m => `• ${m.sku}: ${m.name} — $${m.price_usd.toFixed(2)}/${m.unit} (stock: ${m.stock})`);
-          return `Cross-origin response from ${res.supplier} (executed locally, API key isolated):
-${rows.join("
-")}`;
+          return `Cross-origin response from ${res.supplier} (executed locally, API key isolated):\n${rows.join("\n")}`;
         }
         if (lower.includes("submit") || lower.includes("order") || lower.includes("confirm") || lower.includes("orden")) {
           const emailMatch = text.match(/[\w.-]+@[\w.-]+\.\w+/);

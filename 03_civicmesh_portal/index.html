@@ -120,14 +120,11 @@
             is_student: /student|universi|estudi/i.test(lower),
             has_small_business: /business|workshop|pyme|emprend|taller/i.test(lower)
           });
-          return `You qualify for ${res.matched.length} public program(s) (${res.privacy_note}):
-` +
-            res.matched.map(p => `• ${p.title} (${p.deadline}) — Docs: ${p.documents.join(", ")}`).join("
-");
+          return `You qualify for ${res.matched.length} public program(s) (${res.privacy_note}):\n` +
+            res.matched.map(p => `• ${p.title} (${p.deadline}) — Docs: ${p.documents.join(", ")}`).join("\n");
         }
         const res = await runtime.invokeAction("website_list_programs");
-        return res.programs.map(p => `• [${p.id}] ${p.title} — ${p.cost} (Deadline: ${p.deadline})`).join("
-");
+        return res.programs.map(p => `• [${p.id}] ${p.title} — ${p.cost} (Deadline: ${p.deadline})`).join("\n");
       }
     });
     rt.boot();

@@ -50,9 +50,7 @@
       localFallbackHandler: async (text, runtime) => {
         const res = await runtime.invokeAction("website_get_steel_catalog");
         const lines = res.data.materials.map(m => `• ${m.sku}: ${m.name} — $${m.price_usd.toFixed(2)}/${m.unit} (${m.stock} in stock)`);
-        return `PampaSteel grounded inventory (updated ${res.data.updated_at}):
-${lines.join("
-")}`;
+        return `PampaSteel grounded inventory (updated ${res.data.updated_at}):\n${lines.join("\n")}`;
       }
     });
     rt.boot();

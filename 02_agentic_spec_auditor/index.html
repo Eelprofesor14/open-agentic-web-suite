@@ -122,11 +122,8 @@
         if (!res.ok) return `Audit could not complete: ${res.reason}`;
         const r = res.report;
         const fails = r.checks.filter(c => c.status !== "PASS").map(c => `• [${c.status}] ${c.id}: ${c.message}`);
-        return `Audit complete for ${r.target}: ${r.status} (${r.score}/100, ${r.passed}/${r.total_checks} checks passed).
-` +
-          (fails.length ? `Items to review:
-${fails.join("
-")}` : "All conformance, DAG, CORS, and credential-isolation checks passed!");
+        return `Audit complete for ${r.target}: ${r.status} (${r.score}/100, ${r.passed}/${r.total_checks} checks passed).\n` +
+          (fails.length ? `Items to review:\n${fails.join("\n")}` : "All conformance, DAG, CORS, and credential-isolation checks passed!");
       }
     });
     rt.boot();
