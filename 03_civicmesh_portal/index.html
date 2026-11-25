@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CivicMesh — Privacy-First Open Agentic Public Portal</title>
+  <link rel="stylesheet" href="./runtime/oaw-runtime.css" />
+  <style>
+    body { margin: 0; font-family: system-ui, -apple-system, sans-serif; background: #071318; color: #f1f5f9; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 1.75rem 1.25rem 3rem; }
+    .hero { background: linear-gradient(135deg, #0f766e, #0f172a); border: 1px solid #14b8a6; border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .hero h1 { margin: 0 0 0.35rem; font-size: 1.65rem; }
+    .hero p { margin: 0; color: #ccfbf1; }
+    .grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 1.25rem; }
+    @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+    .card { background: #0f172a; border: 1px solid #1e293b; border-radius: 14px; padding: 1.2rem; }
+    .card h2 { margin: 0 0 0.85rem; font-size: 1.1rem; color: #5eead4; }
+    .prog { background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 0.85rem; margin-bottom: 0.7rem; }
+    .prog strong { display: block; margin-bottom: 0.25rem; }
+    .prog small { color: #94a3b8; display: block; }
+    .plan-box { background: #134e4a; border: 1px solid #2dd4bf; border-radius: 10px; padding: 0.8rem; margin-bottom: 0.65rem; font-size: 0.86rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>CivicMesh — Client-Side Open Agentic Public Portal</h1>
+      <p>Check eligibility for public tech courses, scholarships, and micro-enterprise permits with 100% browser-local execution. Zero personal data is stored on any central server.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Available Public Programs</h2>
+        <div id="prog-list"></div>
+      </div>
+      <div class="card">
+        <h2>My Saved Local Checklists</h2>
+        <div id="saved-plans"><p style="color:#94a3b8;font-size:0.88rem;">No saved checklists yet. Ask the agent below to check your eligibility and save a checklist.</p></div>
+      </div>
+    </div>
+
+    <div id="agent-mount"></div>
+  </div>
+
+  <script type="module">
+    import { OAWRuntime } from "./runtime/oaw-runtime.js";
+    import { PUBLIC_PROGRAMS, CivicState } from "./civic-actions.js";
+
+    document.getElementById("prog-list").innerHTML = PUBLIC_PROGRAMS.map(p => `
+      <div class="prog">
+        <strong>${p.title}</strong>
+        <small>${p.category} · ${p.cost} · Deadline: ${p.deadline}</small>
+        <small>Docs: ${p.documents.join(" | ")}</small>
+      </div>
+    `).join("");
+
+    function renderPlans() {
+      const el = document.getElementById("saved-plans");
+      if (!CivicState.savedPlans.length) return;
+      el.innerHTML = CivicState.savedPlans.map(p => `
+        <div class="plan-box">
+          <strong>${p.title}</strong> (Saved ${p.saved_at})<br>
+          Deadline: ${p.deadline}<br>
+          Checklist: ${p.documents.map(d => `☐ ${d}`).join(" · ")}
+        </div>
+      `).join("");
+    }
+    CivicState.subscribe(renderPlans);
+
+    const rt = new OAWRuntime({
+      mountEl: document.getElementById("agent-mount"),
+      networkName: "civicmesh_portal",
+      greeting: "Welcome to CivicMesh! Tell me if you are a student or run a small business and I will check which public courses, scholarships, or permits you qualify for — 100% privately in your browser.",
+      sampleQueries: [
+        "I am 35, a university student, and run a small workshop. What do I qualify for?",
+        "Save the checklist for the micro_workshop_permit program",
+        "List all free public programs and deadlines"
+      ],
+      actions: {
+        website_list_programs: {
+          effect: "read",
+          description: "Returns all public training, scholarship, and permit programs.",
+          handler: () => ({ ok: true, programs: PUBLIC_PROGRAMS, summary: `${PUBLIC_PROGRAMS.length} public programs returned` })
+        },
+        website_check_eligibility: {
+          effect: "read",
+          description: "Checks eligibility locally in the browser based on age, student status, and small business ownership.",
+          parameters: {
+            type: "object",
+            properties: {
+              age: { type: "number" },
+              is_student: { type: "boolean" },
+              has_small_business: { type: "boolean" }
+            }
+          },
+          handler: (args) => CivicState.checkEligibility(args)
+        },
+        website_save_checklist_plan: {
+          effect: "irreversible",
+          description: "Saves a program document checklist to the visitor's local browser after confirmation.",
+          parameters: { type: "object", properties: { program_id: { type: "string" } }, required: ["program_id"] },
+          preflight: (args) => CivicState.preflightSavePlan(args),
+          handler: (args) => CivicState.savePlan(args)
+        }
+      },
+      localFallbackHandler: async (text, runtime) => {
+        const lower = text.toLowerCase();
+        if (lower.includes("save") || lower.includes("guardar") || lower.includes("checklist")) {
+          const pid = lower.includes("scholar") || lower.includes("beca") ? "stem_scholarship"
+            : lower.includes("grant") ? "digital_sme_grant"
+            : lower.includes("bootcamp") || lower.includes("python") ? "tech_bootcamp"
+            : "micro_workshop_permit";
+          const res = await runtime.invokeAction("website_save_checklist_plan", { program_id: pid });
+          return res.ok ? `Saved checklist for "${res.plan.title}" locally in your browser.` : `Not saved: ${res.reason}`;
+        }
+        if (lower.includes("qualify") || lower.includes("student") || lower.includes("business") || lower.includes("workshop") || lower.includes("elegib")) {
+          const ageM = text.match(/(\d{2})/);
+          const res = await runtime.invokeAction("website_check_eligibility", {
+            age: ageM ? Number(ageM[1]) : 30,
+            is_student: /student|universi|estudi/i.test(lower),
+            has_small_business: /business|workshop|pyme|emprend|taller/i.test(lower)
+          });
+          return `You qualify for ${res.matched.length} public program(s) (${res.privacy_note}):
+` +
+            res.matched.map(p => `• ${p.title} (${p.deadline}) — Docs: ${p.documents.join(", ")}`).join("
+");
+        }
+        const res = await runtime.invokeAction("website_list_programs");
+        return res.programs.map(p => `• [${p.id}] ${p.title} — ${p.cost} (Deadline: ${p.deadline})`).join("
+");
+      }
+    });
+    rt.boot();
+  </script>
+</body>
+</html>

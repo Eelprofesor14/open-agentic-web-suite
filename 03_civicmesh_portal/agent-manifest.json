@@ -1,0 +1,25 @@
+{
+  "spec_version": "0.2",
+  "brand": {
+    "name": "CivicMesh Public Services",
+    "tagline": "100% Client-Side Privacy Citizen Training & Grants Portal"
+  },
+  "peer_policy": "allowlist",
+  "allowed_peers": [],
+  "actions": {
+    "module": "./civic-actions.js",
+    "agentTools": [
+      "website_list_programs",
+      "website_check_eligibility",
+      "website_save_checklist_plan"
+    ]
+  },
+  "networks": [
+    {
+      "name": "civicmesh_portal",
+      "front_man": "civic_concierge",
+      "hocon": "./civicmesh_portal.network.json",
+      "description": "Privacy-preserving public courses, scholarships, and small-business permit guide executed strictly client-side."
+    }
+  ]
+}

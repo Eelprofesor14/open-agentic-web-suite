@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "description": "PampaSteel wholesale raw materials agent network for cross-origin workshop inquiries.",
+    "spec_version": "0.2"
+  },
+  "tools": [
+    {
+      "name": "inventory_desk",
+      "function": {
+        "description": "Checks wholesale steel SKUs, prices in USD, and real-time stock quantities from PampaSteel.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "inquiry": {
+              "type": "string",
+              "description": "Material name, SKU, or project bill-of-materials request"
+            }
+          },
+          "required": [
+            "inquiry"
+          ]
+        }
+      },
+      "instructions": "Answer material availability and pricing strictly from catalog.json. Never invent discounts, shipping guarantees, or unverified SKUs. When called from a peer site, summarize relevant SKUs, unit prices, and stock, and point visitors to PampaSteel for formal purchase orders.",
+      "tools": []
+    }
+  ]
+}

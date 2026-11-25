@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PampaSteel Supply — Open Agentic Peer Site</title>
+  <link rel="stylesheet" href="./runtime/oaw-runtime.css" />
+  <style>
+    body { margin: 0; font-family: system-ui, sans-serif; background: #0b1120; color: #e2e8f0; }
+    .wrap { max-width: 1060px; margin: 0 auto; padding: 2rem 1.25rem; }
+    .hero { background: linear-gradient(135deg, #1e293b, #0f172a); border: 1px solid #334155; border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .hero h1 { margin: 0 0 0.4rem; }
+    .hero p { margin: 0; color: #94a3b8; }
+    table { width: 100%; border-collapse: collapse; background: #1e293b; border-radius: 12px; overflow: hidden; }
+    th, td { text-align: left; padding: 0.75rem 1rem; border-bottom: 1px solid #334155; font-size: 0.9rem; }
+    th { background: #0f172a; color: #93c5fd; }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>PampaSteel Wholesale Supply (Peer Agentic Site)</h1>
+      <p>Public CORS-enabled Open Agentic Web node (<code>steel_supplier</code>). Called cross-origin by ForgeLink Workshop to ground live steel pricing without sharing visitor API keys.</p>
+    </div>
+    <table>
+      <thead><tr><th>SKU</th><th>Material</th><th>Unit</th><th class="num">Price (USD)</th><th class="num">In Stock</th></tr></thead>
+      <tbody id="steel-rows"></tbody>
+    </table>
+    <div id="agent-mount"></div>
+  </div>
+  <script type="module">
+    import { OAWRuntime } from "./runtime/oaw-runtime.js";
+    const catalog = await (await fetch("./catalog.json")).json();
+    document.getElementById("steel-rows").innerHTML = catalog.materials.map(m =>
+      `<tr><td><code>${m.sku}</code></td><td>${m.name}</td><td>${m.unit}</td><td class="num">$${m.price_usd.toFixed(2)}</td><td class="num">${m.stock}</td></tr>`
+    ).join("");
+    const rt = new OAWRuntime({
+      mountEl: document.getElementById("agent-mount"),
+      networkName: "steel_supplier",
+      greeting: "Welcome to PampaSteel Supply! Ask about steel tubes, sheets, iron bars, epoxy paint, or electrodes.",
+      sampleQueries: ["List all steel SKUs and prices", "Do you have 40x40 square tubes in stock?"],
+      actions: {
+        website_get_steel_catalog: {
+          effect: "read",
+          description: "Returns the grounded PampaSteel wholesale inventory and prices.",
+          handler: () => ({ ok: true, data: catalog, summary: `${catalog.materials.length} SKUs returned` })
+        }
+      },
+      localFallbackHandler: async (text, runtime) => {
+        const res = await runtime.invokeAction("website_get_steel_catalog");
+        const lines = res.data.materials.map(m => `• ${m.sku}: ${m.name} — $${m.price_usd.toFixed(2)}/${m.unit} (${m.stock} in stock)`);
+        return `PampaSteel grounded inventory (updated ${res.data.updated_at}):
+${lines.join("
+")}`;
+      }
+    });
+    rt.boot();
+  </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+{
+  "metadata": {
+    "description": "ForgeLink Custom Metalwork multi-agent network with parametric fabrication pricing and cross-origin steel supplier lookup.",
+    "spec_version": "0.2"
+  },
+  "tools": [
+    {
+      "name": "front_desk_coordinator",
+      "function": {
+        "description": "Main coordinator for ForgeLink Workshop. Answers product questions, delegates parametric quotes, checks peer supplier pricing with visitor consent, and prepares fabrication orders.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "inquiry": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "inquiry"
+          ]
+        }
+      },
+      "instructions": "Greet visitors and help them configure custom metalwork (sliding gates, BBQ grills, industrial tables, security grilles). Delegate parametric math to parametric_estimator. For raw steel stock or current steel bar/sheet prices, call the peer network http://127.0.0.1:8082/steel_supplier (requires visitor consent). Never fabricate prices or commit an order without calling website_submit_fabrication_order (which opens a mandatory confirmation dialog).",
+      "tools": [
+        "parametric_estimator",
+        "http://127.0.0.1:8082/steel_supplier"
+      ]
+    },
+    {
+      "name": "parametric_estimator",
+      "function": {
+        "description": "Calculates grounded fabrication quotes based on product type, width (m), height (m), and finish, and manages the workshop quote cart.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "product_id": {
+              "type": "string"
+            },
+            "width_m": {
+              "type": "number"
+            },
+            "height_m": {
+              "type": "number"
+            },
+            "finish": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "product_id",
+            "width_m",
+            "height_m"
+          ]
+        }
+      },
+      "instructions": "Use website_get_workshop_state and website_calculate_quote to compute exact fabrication quotes from real workshop formulas. Never invent prices.",
+      "tools": []
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgenticSpec Auditor — Open Agentic Web MVP 0.2 Test Bench</title>
+  <link rel="stylesheet" href="./runtime/oaw-runtime.css" />
+  <style>
+    body { margin: 0; font-family: system-ui, -apple-system, sans-serif; background: #090d16; color: #f1f5f9; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 1.75rem 1.25rem 3rem; }
+    .hero { background: linear-gradient(135deg, #1e1b4b, #0f172a); border: 1px solid #4338ca; border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .hero h1 { margin: 0 0 0.35rem; font-size: 1.65rem; }
+    .hero p { margin: 0; color: #c7d2fe; }
+    .bar { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .bar input { flex: 1; min-width: 260px; background: #1e293b; color: #fff; border: 1px solid #334155; border-radius: 8px; padding: 0.65rem 0.85rem; }
+    .btn { background: #4f46e5; color: #fff; border: none; border-radius: 8px; padding: 0.65rem 1.1rem; font-weight: 600; cursor: pointer; }
+    .btn-ghost { background: #1e293b; color: #e2e8f0; border: 1px solid #334155; border-radius: 8px; padding: 0.5rem 0.85rem; cursor: pointer; font-size: 0.82rem; }
+    .card { background: #111827; border: 1px solid #334155; border-radius: 14px; padding: 1.2rem; }
+    .score-banner { display: flex; justify-content: space-between; align-items: center; padding: 0.9rem 1rem; background: #1e293b; border-radius: 10px; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.75rem; }
+    .score-num { font-size: 1.6rem; font-weight: 800; color: #4ade80; }
+    .score-num.fail { color: #f87171; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    th, td { text-align: left; padding: 0.65rem 0.75rem; border-bottom: 1px solid #1f2937; }
+    th { color: #a5b4fc; }
+    .pill { padding: 0.15rem 0.55rem; border-radius: 999px; font-weight: 700; font-size: 0.74rem; }
+    .PASS { background: #14532d; color: #86efac; }
+    .WARN { background: #713f12; color: #fde047; }
+    .FAIL { background: #7f1d1d; color: #fca5a5; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>AgenticSpec Auditor — MVP 0.2 Conformance &amp; Security Bench</h1>
+      <p>Live browser validator &amp; reusable ES module (<code>lib/oaw-validator.mjs</code>) that tests any Open Agentic Website URL for manifest validity, Neuro SAN DAG acyclicity, CORS headers, and credential isolation.</p>
+    </div>
+
+    <div class="card">
+      <div class="bar">
+        <input id="audit-url" value="http://127.0.0.1:8081/" placeholder="https://your-agentic-site.example/" />
+        <button class="btn" id="btn-audit">Run Live Audit</button>
+        <button class="btn-ghost" id="btn-export" disabled>Download JSON Report</button>
+      </div>
+      <div class="bar">
+        <span style="font-size:0.82rem;color:#94a3b8;align-self:center;">Quick local presets:</span>
+        <button class="btn-ghost preset" data-url="http://127.0.0.1:8081/">ForgeLink Workshop (:8081)</button>
+        <button class="btn-ghost preset" data-url="http://127.0.0.1:8082/">PampaSteel Peer (:8082)</button>
+        <button class="btn-ghost preset" data-url="http://127.0.0.1:8083/">Self Audit (:8083)</button>
+        <button class="btn-ghost preset" data-url="http://127.0.0.1:8084/">CivicMesh Portal (:8084)</button>
+      </div>
+      <div id="audit-out"><p style="color:#94a3b8;">Click <strong>Run Live Audit</strong> or ask the agent below to inspect any Open Agentic Website.</p></div>
+    </div>
+
+    <div id="agent-mount"></div>
+  </div>
+
+  <script type="module">
+    import { OAWRuntime } from "./runtime/oaw-runtime.js";
+    import { auditRemoteSite } from "./lib/oaw-validator.mjs";
+
+    let lastReport = null;
+    const urlInp = document.getElementById("audit-url");
+    const outEl = document.getElementById("audit-out");
+    const expBtn = document.getElementById("btn-export");
+
+    async function runAndRender(url) {
+      urlInp.value = url;
+      outEl.innerHTML = `<p style="color:#93c5fd;">Auditing <code>${url}</code> via CORS...</p>`;
+      try {
+        const rep = await auditRemoteSite(url);
+        lastReport = rep;
+        expBtn.disabled = false;
+        outEl.innerHTML = `
+          <div class="score-banner">
+            <div><strong>${rep.target}</strong><div style="font-size:0.8rem;color:#94a3b8;">${rep.spec_profile} · ${rep.passed}/${rep.total_checks} passed</div></div>
+            <div class="score-num ${rep.failed ? "fail" : ""}">${rep.score}/100 · ${rep.status}</div>
+          </div>
+          <table>
+            <thead><tr><th>ID</th><th>Category</th><th>Status</th><th>Finding</th></tr></thead>
+            <tbody>${rep.checks.map(c => `<tr><td><code>${c.id}</code></td><td>${c.category}</td><td><span class="pill ${c.status}">${c.status}</span></td><td>${c.message}</td></tr>`).join("")}</tbody>
+          </table>
+        `;
+        return { ok: true, report: rep, summary: `${rep.status} (${rep.score}/100) for ${rep.target}` };
+      } catch (err) {
+        outEl.innerHTML = `<div class="oaw-error">Audit failed: ${err.message}</div>`;
+        return { ok: false, reason: err.message };
+      }
+    }
+
+    document.getElementById("btn-audit").addEventListener("click", () => runAndRender(urlInp.value.trim()));
+    document.querySelectorAll(".preset").forEach(b => b.addEventListener("click", () => runAndRender(b.dataset.url)));
+    expBtn.addEventListener("click", () => {
+      if (!lastReport) return;
+      const blob = new Blob([JSON.stringify(lastReport, null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `oaw-audit-report-${Date.now()}.json`;
+      a.click();
+    });
+
+    const rt = new OAWRuntime({
+      mountEl: document.getElementById("agent-mount"),
+      networkName: "agentic_spec_auditor",
+      greeting: "I am AgenticSpec Auditor. Give me any Open Agentic Website URL (like http://127.0.0.1:8081/ or http://127.0.0.1:8084/) and I will run a real MVP 0.2 conformance & security audit in your browser.",
+      sampleQueries: [
+        "Audit http://127.0.0.1:8081/ for MVP 0.2 conformance",
+        "Audit http://127.0.0.1:8084/ and summarize security findings",
+        "Audit http://127.0.0.1:8082/"
+      ],
+      actions: {
+        website_run_url_audit: {
+          effect: "read",
+          description: "Fetches agent-manifest.json, network JSON, and links.json from a target URL and runs MVP 0.2 checks.",
+          parameters: { type: "object", properties: { target_url: { type: "string" } }, required: ["target_url"] },
+          handler: ({ target_url }) => runAndRender(target_url)
+        }
+      },
+      localFallbackHandler: async (text, runtime) => {
+        const m = text.match(/https?:\/\/[^\s]+/i);
+        const target = m ? m[0] : urlInp.value.trim();
+        const res = await runtime.invokeAction("website_run_url_audit", { target_url: target });
+        if (!res.ok) return `Audit could not complete: ${res.reason}`;
+        const r = res.report;
+        const fails = r.checks.filter(c => c.status !== "PASS").map(c => `• [${c.status}] ${c.id}: ${c.message}`);
+        return `Audit complete for ${r.target}: ${r.status} (${r.score}/100, ${r.passed}/${r.total_checks} checks passed).
+` +
+          (fails.length ? `Items to review:
+${fails.join("
+")}` : "All conformance, DAG, CORS, and credential-isolation checks passed!");
+      }
+    });
+    rt.boot();
+  </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+{
+  "metadata": {
+    "description": "Multi-agent conformance & security auditor for the Worldwide Agentic Web MVP 0.2.",
+    "spec_version": "0.2"
+  },
+  "tools": [
+    {
+      "name": "audit_coordinator",
+      "function": {
+        "description": "Coordinates live URL conformance audits and delegates schema & security analysis.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "target_url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "target_url"
+          ]
+        }
+      },
+      "instructions": "Run real conformance checks via website_run_url_audit and delegate deep security reviews to security_threat_reviewer. Never fabricate pass/fail results.",
+      "tools": [
+        "security_threat_reviewer"
+      ]
+    },
+    {
+      "name": "security_threat_reviewer",
+      "function": {
+        "description": "Reviews peer_policy, credential leakage, and untrusted instruction risks from real audit results.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "audit_summary": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "audit_summary"
+          ]
+        }
+      },
+      "instructions": "Evaluate real audit findings for MVP 0.2 Section 5 compliance (BYOK isolation, sly_data deny-by-default, fail-closed behavior).",
+      "tools": []
+    }
+  ]
+}

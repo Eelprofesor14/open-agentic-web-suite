@@ -1,0 +1,28 @@
+{
+  "spec_version": "0.2",
+  "brand": {
+    "name": "AgenticSpec Auditor",
+    "tagline": "Open-Source Conformance & Cross-Origin Security Test Bench"
+  },
+  "peer_policy": "open",
+  "allowed_peers": [
+    "http://127.0.0.1:8081",
+    "http://127.0.0.1:8082",
+    "http://127.0.0.1:8084"
+  ],
+  "actions": {
+    "module": "./lib/oaw-validator.mjs",
+    "agentTools": [
+      "website_run_url_audit",
+      "website_export_audit_report"
+    ]
+  },
+  "networks": [
+    {
+      "name": "agentic_spec_auditor",
+      "front_man": "audit_coordinator",
+      "hocon": "./agentic_spec_auditor.network.json",
+      "description": "Audits any Open Agentic Website URL against MVP Profile 0.2 conformance, CORS, DAG acyclicity, and credential isolation rules."
+    }
+  ]
+}

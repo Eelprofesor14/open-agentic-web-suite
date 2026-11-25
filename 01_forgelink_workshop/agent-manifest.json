@@ -1,0 +1,33 @@
+{
+  "spec_version": "0.2",
+  "brand": {
+    "name": "ForgeLink Custom Metalwork",
+    "tagline": "Parametric Fabrication Workshop with Cross-Origin Supplier Agents"
+  },
+  "peer_policy": "allowlist",
+  "allowed_peers": [
+    "http://127.0.0.1:8082",
+    "http://localhost:8082"
+  ],
+  "link_labels": {
+    "http://127.0.0.1:8082/steel_supplier": "PampaSteel Wholesale Supply"
+  },
+  "actions": {
+    "module": "./site-actions.js",
+    "agentTools": [
+      "website_get_workshop_state",
+      "website_calculate_quote",
+      "website_add_quote_to_cart",
+      "website_check_peer_steel_prices",
+      "website_submit_fabrication_order"
+    ]
+  },
+  "networks": [
+    {
+      "name": "forgelink_workshop",
+      "front_man": "front_desk_coordinator",
+      "hocon": "./forgelink_workshop.network.json",
+      "description": "Parametric metalwork estimator and order coordinator that queries PampaSteel cross-origin for grounded steel prices."
+    }
+  ]
+}

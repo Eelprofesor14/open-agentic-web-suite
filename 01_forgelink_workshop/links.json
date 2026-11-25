@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "networks": {
+    "forgelink_workshop": {
+      "steel_supplier": "http://127.0.0.1:8082/steel_supplier"
+    }
+  }
+}

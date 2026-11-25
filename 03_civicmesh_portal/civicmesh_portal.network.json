@@ -1,0 +1,71 @@
+{
+  "metadata": {
+    "description": "CivicMesh client-side multi-agent portal for public training, scholarships, and micro-enterprise permits.",
+    "spec_version": "0.2"
+  },
+  "tools": [
+    {
+      "name": "civic_concierge",
+      "function": {
+        "description": "Front agent guiding citizens to public courses, scholarships, and micro-business permits.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "inquiry": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "inquiry"
+          ]
+        }
+      },
+      "instructions": "Help citizens find matching public programs using website_list_programs, delegate eligibility checks to eligibility_specialist, and save personalized checklists only after human confirmation via website_save_checklist_plan.",
+      "tools": [
+        "eligibility_specialist",
+        "documentation_planner"
+      ]
+    },
+    {
+      "name": "eligibility_specialist",
+      "function": {
+        "description": "Evaluates citizen eligibility strictly in browser memory without transmitting personal data to any server.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "age": {
+              "type": "number"
+            },
+            "is_student": {
+              "type": "boolean"
+            },
+            "has_small_business": {
+              "type": "boolean"
+            }
+          }
+        }
+      },
+      "instructions": "Use website_check_eligibility with the user's stated attributes. Emphasize that no personal data is sent to a backend server.",
+      "tools": []
+    },
+    {
+      "name": "documentation_planner",
+      "function": {
+        "description": "Builds a grounded step-by-step document checklist for a selected public program.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "program_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "program_id"
+          ]
+        }
+      },
+      "instructions": "Return exact document requirements from website_list_programs and never invent deadlines or fees.",
+      "tools": []
+    }
+  ]
+}

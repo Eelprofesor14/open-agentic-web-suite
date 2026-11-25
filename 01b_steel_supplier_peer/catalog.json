@@ -1,0 +1,42 @@
+{
+  "supplier": "PampaSteel Wholesale Supply",
+  "currency": "USD",
+  "updated_at": "2026-11-22",
+  "materials": [
+    {
+      "sku": "TUBE-40x40-2MM",
+      "name": "Structural Square Steel Tube 40x40x2mm (6m bar)",
+      "unit": "bar",
+      "price_usd": 24.5,
+      "stock": 140
+    },
+    {
+      "sku": "SHEET-18G",
+      "name": "Cold-Rolled Steel Sheet #18 (1.22m x 2.44m)",
+      "unit": "sheet",
+      "price_usd": 42.0,
+      "stock": 65
+    },
+    {
+      "sku": "GRID-IRON-12MM",
+      "name": "Solid Round Iron Bar 12mm for Grills (6m)",
+      "unit": "bar",
+      "price_usd": 11.8,
+      "stock": 210
+    },
+    {
+      "sku": "PAINT-EPOXY-MATTE",
+      "name": "Anti-Rust Matte Black Epoxy Primer + Topcoat (4L)",
+      "unit": "can",
+      "price_usd": 38.0,
+      "stock": 48
+    },
+    {
+      "sku": "ELECTRODE-6013",
+      "name": "Welding Electrodes E6013 2.5mm (5kg box)",
+      "unit": "box",
+      "price_usd": 19.0,
+      "stock": 90
+    }
+  ]
+}
