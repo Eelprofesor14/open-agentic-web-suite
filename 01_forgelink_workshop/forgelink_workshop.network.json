@@ -20,10 +20,10 @@
           ]
         }
       },
-      "instructions": "Greet visitors and help them configure custom metalwork (sliding gates, BBQ grills, industrial tables, security grilles). Delegate parametric math to parametric_estimator. For raw steel stock or current steel bar/sheet prices, call the peer network http://127.0.0.1:8082/steel_supplier (requires visitor consent). Never fabricate prices or commit an order without calling website_submit_fabrication_order (which opens a mandatory confirmation dialog).",
+      "instructions": "Greet visitors and help them configure custom metalwork (sliding gates, BBQ grills, industrial tables, security grilles). Delegate parametric math to parametric_estimator. For raw steel stock or current steel bar/sheet prices, call the peer network https://Eelprofesor14.github.io/open-agentic-web-suite/01b_steel_supplier_peer/steel_supplier (requires visitor consent). Never fabricate prices or commit an order without calling website_submit_fabrication_order (which opens a mandatory confirmation dialog).",
       "tools": [
         "parametric_estimator",
-        "http://127.0.0.1:8082/steel_supplier"
+        "https://Eelprofesor14.github.io/open-agentic-web-suite/01b_steel_supplier_peer/steel_supplier"
       ]
     },
     {

@@ -10,16 +10,16 @@ Todos los proyectos cumplen con la especificación oficial **Worldwide Agentic W
    python3 serve_all.py
    ```
 3. Abrí en tu navegador:
-   - **Proyecto 1 (Taller + Proveedor Cross-Origin):** `http://127.0.0.1:8081/` (y el peer en `http://127.0.0.1:8082/`)
-   - **Proyecto 2 (AgenticSpec Auditor + Librería `lib/oaw-validator.mjs`):** `http://127.0.0.1:8083/`
-   - **Proyecto 3 (CivicMesh Portal Client-Side):** `http://127.0.0.1:8084/`
+   - **Proyecto 1 (Taller + Proveedor Cross-Origin):** `https://Eelprofesor14.github.io/open-agentic-web-suite/01_forgelink_workshop/` (y el peer en `https://Eelprofesor14.github.io/open-agentic-web-suite/01b_steel_supplier_peer/`)
+   - **Proyecto 2 (AgenticSpec Auditor + Librería `lib/oaw-validator.mjs`):** `https://Eelprofesor14.github.io/open-agentic-web-suite/02_agentic_spec_auditor/`
+   - **Proyecto 3 (CivicMesh Portal Client-Side):** `https://Eelprofesor14.github.io/open-agentic-web-suite/03_civicmesh_portal/`
 4. Cada sitio arranca en **Zero-Key Local Simulator** para probarlo al instante, y desde el botón **⚙ AI Model Settings (BYOK)** podés pegar una API key de Mozilla Otari o OpenRouter para correrlo con un LLM real en vivo.
 
 ## 2. Cómo publicar gratis con HTTPS + CORS (Cloudflare Pages / Netlify / GitHub Pages)
 
 Cada carpeta (`01_forgelink_workshop`, `01b_steel_supplier_peer`, `02_agentic_spec_auditor`, `03_civicmesh_portal`) es **100% autónoma** e incluye el archivo `_headers` con `Access-Control-Allow-Origin: *`.
 - **Opción más rápida (Netlify Drop o Cloudflare Pages):** arrastrás cada carpeta para obtener su URL HTTPS pública al instante.
-- **Importante para Proyecto 1 al pasar a producción:** una vez publicada `01b_steel_supplier_peer` (ej. `https://pampasteel.pages.dev`), reemplazá `http://127.0.0.1:8082` por tu URL HTTPS pública en `01_forgelink_workshop/agent-manifest.json`, `links.json`, `forgelink_workshop.network.json` e `index.html`.
+- **Importante para Proyecto 1 al pasar a producción:** una vez publicada `01b_steel_supplier_peer` (ej. `https://pampasteel.pages.dev`), reemplazá `https://Eelprofesor14.github.io/open-agentic-web-suite/01b_steel_supplier_peer` por tu URL HTTPS pública en `01_forgelink_workshop/agent-manifest.json`, `links.json`, `forgelink_workshop.network.json` e `index.html`.
 
 ## 3. Guion cronometrado (< 2 minutos) para el video en YouTube (requisito de Devpost)
 

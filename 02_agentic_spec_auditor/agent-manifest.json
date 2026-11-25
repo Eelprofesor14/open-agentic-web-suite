@@ -6,9 +6,9 @@
   },
   "peer_policy": "open",
   "allowed_peers": [
-    "http://127.0.0.1:8081",
-    "http://127.0.0.1:8082",
-    "http://127.0.0.1:8084"
+    "https://Eelprofesor14.github.io/open-agentic-web-suite/01_forgelink_workshop",
+    "https://Eelprofesor14.github.io/open-agentic-web-suite/01b_steel_supplier_peer",
+    "https://Eelprofesor14.github.io/open-agentic-web-suite/03_civicmesh_portal"
   ],
   "actions": {
     "module": "./lib/oaw-validator.mjs",

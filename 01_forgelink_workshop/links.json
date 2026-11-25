@@ -2,7 +2,7 @@
   "version": 1,
   "networks": {
     "forgelink_workshop": {
-      "steel_supplier": "http://127.0.0.1:8082/steel_supplier"
+      "steel_supplier": "https://Eelprofesor14.github.io/open-agentic-web-suite/01b_steel_supplier_peer/steel_supplier"
     }
   }
 }

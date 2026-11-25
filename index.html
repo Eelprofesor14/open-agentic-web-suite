@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Open Agentic Web Suite — Santiago Zazo</title>
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; background: #0d1117; color: #e6edf3; margin: 0; padding: 2rem; }
+    .wrap { max-width: 900px; margin: 0 auto; }
+    h1 { margin-bottom: 0.25rem; }
+    p.sub { color: #8b949e; margin-top: 0; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+    .card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 1.25rem; }
+    .card h2 { margin-top: 0; font-size: 1.1rem; }
+    .card p { color: #8b949e; font-size: 0.92rem; line-height: 1.45; }
+    a.btn { display: inline-block; margin-top: 0.5rem; padding: 0.5rem 0.9rem; background: #238636; color: #fff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 0.9rem; }
+    a.btn:hover { background: #2ea043; }
+    footer { margin-top: 2rem; color: #8b949e; font-size: 0.85rem; }
+    footer a { color: #58a6ff; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Open Agentic Web Suite (MVP Profile 0.2)</h1>
+    <p class="sub">Live HTTPS deployment by Santiago Zazo for the Open Agentic Web Challenge.</p>
+    <div class="grid">
+      <div class="card">
+        <h2>1. ForgeLink Workshop</h2>
+        <p>Parametric metalworking &amp; manufacturing workshop with Consent Cards, isolated BYOK, and human confirmation connected to the Steel Supplier Peer.</p>
+        <a class="btn" href="./01_forgelink_workshop/">Launch Workshop</a>
+      </div>
+      <div class="card">
+        <h2>1b. Steel Supplier Peer</h2>
+        <p>Interoperable wholesale steel supplier peer answering cross-origin agentic quotes and inventory checks.</p>
+        <a class="btn" href="./01b_steel_supplier_peer/">Launch Peer</a>
+      </div>
+      <div class="card">
+        <h2>2. Agentic Spec Auditor</h2>
+        <p>Live Open Agentic Web conformance testbench powered by the reusable <code>lib/oaw-validator.mjs</code> library.</p>
+        <a class="btn" href="./02_agentic_spec_auditor/">Launch Auditor</a>
+      </div>
+      <div class="card">
+        <h2>3. CivicMesh Portal</h2>
+        <p>100% client-side privacy portal for local courses, scholarships, and municipal permits.</p>
+        <a class="btn" href="./03_civicmesh_portal/">Launch Portal</a>
+      </div>
+    </div>
+    <footer>
+      Source repository: <a href="https://github.com/Eelprofesor14/open-agentic-web-suite">github.com/Eelprofesor14/open-agentic-web-suite</a> · Live root: <code>https://Eelprofesor14.github.io/open-agentic-web-suite</code>
+    </footer>
+  </div>
+</body>
+</html>

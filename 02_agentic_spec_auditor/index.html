@@ -37,16 +37,16 @@
 
     <div class="card">
       <div class="bar">
-        <input id="audit-url" value="http://127.0.0.1:8081/" placeholder="https://your-agentic-site.example/" />
+        <input id="audit-url" value="https://Eelprofesor14.github.io/open-agentic-web-suite/01_forgelink_workshop/" placeholder="https://your-agentic-site.example/" />
         <button class="btn" id="btn-audit">Run Live Audit</button>
         <button class="btn-ghost" id="btn-export" disabled>Download JSON Report</button>
       </div>
       <div class="bar">
         <span style="font-size:0.82rem;color:#94a3b8;align-self:center;">Quick local presets:</span>
-        <button class="btn-ghost preset" data-url="http://127.0.0.1:8081/">ForgeLink Workshop (:8081)</button>
-        <button class="btn-ghost preset" data-url="http://127.0.0.1:8082/">PampaSteel Peer (:8082)</button>
-        <button class="btn-ghost preset" data-url="http://127.0.0.1:8083/">Self Audit (:8083)</button>
-        <button class="btn-ghost preset" data-url="http://127.0.0.1:8084/">CivicMesh Portal (:8084)</button>
+        <button class="btn-ghost preset" data-url="https://Eelprofesor14.github.io/open-agentic-web-suite/01_forgelink_workshop/">ForgeLink Workshop (:8081)</button>
+        <button class="btn-ghost preset" data-url="https://Eelprofesor14.github.io/open-agentic-web-suite/01b_steel_supplier_peer/">PampaSteel Peer (:8082)</button>
+        <button class="btn-ghost preset" data-url="https://Eelprofesor14.github.io/open-agentic-web-suite/02_agentic_spec_auditor/">Self Audit (:8083)</button>
+        <button class="btn-ghost preset" data-url="https://Eelprofesor14.github.io/open-agentic-web-suite/03_civicmesh_portal/">CivicMesh Portal (:8084)</button>
       </div>
       <div id="audit-out"><p style="color:#94a3b8;">Click <strong>Run Live Audit</strong> or ask the agent below to inspect any Open Agentic Website.</p></div>
     </div>
@@ -101,11 +101,11 @@
     const rt = new OAWRuntime({
       mountEl: document.getElementById("agent-mount"),
       networkName: "agentic_spec_auditor",
-      greeting: "I am AgenticSpec Auditor. Give me any Open Agentic Website URL (like http://127.0.0.1:8081/ or http://127.0.0.1:8084/) and I will run a real MVP 0.2 conformance & security audit in your browser.",
+      greeting: "I am AgenticSpec Auditor. Give me any Open Agentic Website URL (like https://Eelprofesor14.github.io/open-agentic-web-suite/01_forgelink_workshop/ or https://Eelprofesor14.github.io/open-agentic-web-suite/03_civicmesh_portal/) and I will run a real MVP 0.2 conformance & security audit in your browser.",
       sampleQueries: [
-        "Audit http://127.0.0.1:8081/ for MVP 0.2 conformance",
-        "Audit http://127.0.0.1:8084/ and summarize security findings",
-        "Audit http://127.0.0.1:8082/"
+        "Audit https://Eelprofesor14.github.io/open-agentic-web-suite/01_forgelink_workshop/ for MVP 0.2 conformance",
+        "Audit https://Eelprofesor14.github.io/open-agentic-web-suite/03_civicmesh_portal/ and summarize security findings",
+        "Audit https://Eelprofesor14.github.io/open-agentic-web-suite/01b_steel_supplier_peer/"
       ],
       actions: {
         website_run_url_audit: {
