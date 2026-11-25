@@ -6,11 +6,13 @@
   },
   "peer_policy": "allowlist",
   "allowed_peers": [
-    "https://Eelprofesor14.github.io/open-agentic-web-suite/01b_steel_supplier_peer",
-    "https://Eelprofesor14.github.io/open-agentic-web-suite/01b_steel_supplier_peer"
+    "https://eelprofesor14.github.io",
+    "https://eelprofesor14.github.io/open-agentic-web-suite/01b_steel_supplier_peer",
+    "http://127.0.0.1:8082",
+    "http://localhost:8082"
   ],
   "link_labels": {
-    "https://Eelprofesor14.github.io/open-agentic-web-suite/01b_steel_supplier_peer/steel_supplier": "PampaSteel Wholesale Supply"
+    "https://eelprofesor14.github.io/open-agentic-web-suite/01b_steel_supplier_peer/steel_supplier": "PampaSteel Wholesale Supply"
   },
   "actions": {
     "module": "./site-actions.js",

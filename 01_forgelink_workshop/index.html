@@ -161,7 +161,7 @@
           effect: "read",
           description: "Loads the cross-origin PampaSteel peer network after visitor consent and returns live steel prices.",
           handler: async (_, runtime) => {
-            const peer = await runtime.callPeerNetwork("https://Eelprofesor14.github.io/open-agentic-web-suite/01b_steel_supplier_peer/steel_supplier", "Requesting current steel tube and sheet pricing");
+            const peer = await runtime.callPeerNetwork("https://eelprofesor14.github.io/open-agentic-web-suite/01b_steel_supplier_peer/steel_supplier", "Requesting current steel tube and sheet pricing");
             if (!peer.ok) return peer;
             return { ok: true, supplier: peer.peerCatalog?.supplier, materials: peer.peerCatalog?.materials || [], summary: `Loaded ${peer.peerCatalog?.materials?.length || 0} SKUs from ${peer.peerOrigin}` };
           }

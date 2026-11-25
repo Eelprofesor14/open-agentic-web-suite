@@ -16,9 +16,20 @@ Three interoperable, privacy-first web applications built for the [Open Agentic 
 | **`02_agentic_spec_auditor`** | `:8083` | Live Open Agentic Web conformance testbench plus reusable open-source validator library (`lib/oaw-validator.mjs`) for both Browser and Node.js CLI. |
 | **`03_civicmesh_portal`** | `:8084` | 100% client-side privacy portal for local courses, scholarships, and municipal permits without external data leakage. |
 
-## Quick Start (Local)
+## Live HTTPS Deployment (Zero-Backend Static Hosting)
+
+All four Open Agentic Web MVP 0.2 nodes are deployed live over HTTPS with CORS enabled:
+
+- **Suite Portal:** https://eelprofesor14.github.io/open-agentic-web-suite/
+- **1. ForgeLink Workshop:** https://eelprofesor14.github.io/open-agentic-web-suite/01_forgelink_workshop/
+- **1b. PampaSteel Supplier Peer:** https://eelprofesor14.github.io/open-agentic-web-suite/01b_steel_supplier_peer/
+- **2. AgenticSpec Auditor (`oaw-validator.mjs`):** https://eelprofesor14.github.io/open-agentic-web-suite/02_agentic_spec_auditor/
+- **3. CivicMesh Public Portal:** https://eelprofesor14.github.io/open-agentic-web-suite/03_civicmesh_portal/
+
+## Quick Start (Local Development)
 
 ```bash
+python validate_all.py
 python serve_all.py
 ```
 

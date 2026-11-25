@@ -466,10 +466,25 @@ export class OAWRuntime {
     const peerNetworkName = segments.pop();
     const basePath = `${parsed.origin}/${segments.length ? segments.join("/") + "/" : ""}`;
 
-    // Check peer_policy / allowed_peers
+    // Check peer_policy / allowed_peers (supports exact origin or normalized URL prefix, case-insensitive host)
     const policy = this.manifest.peer_policy || "allowlist";
     const allowed = this.manifest.allowed_peers || [];
-    if (policy !== "open" && !allowed.includes(parsed.origin)) {
+    const normPeerHref = parsed.href.replace(/\/+$/, "").toLowerCase();
+    const normPeerOrigin = parsed.origin.toLowerCase();
+    const isAllowedPeer = allowed.some(entry => {
+      try {
+        const u = new URL(entry);
+        const normEntryHref = u.href.replace(/\/+$/, "").toLowerCase();
+        const normEntryOrigin = u.origin.toLowerCase();
+        if (u.pathname === "/" || u.pathname === "") {
+          return normPeerOrigin === normEntryOrigin;
+        }
+        return normPeerHref === normEntryHref || normPeerHref.startsWith(normEntryHref + "/");
+      } catch (_) {
+        return String(entry).trim().replace(/\/+$/, "").toLowerCase() === normPeerOrigin;
+      }
+    });
+    if (policy !== "open" && !isAllowedPeer) {
       this.logTrace("security", "Peer Origin Blocked by Manifest Policy", `${parsed.origin} not in allowed_peers`);
       return { ok: false, reason: `Origin ${parsed.origin} is not permitted by this site's peer_policy (${policy}).` };
     }
