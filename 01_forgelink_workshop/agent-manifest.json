@@ -8,8 +8,8 @@
   "allowed_peers": [
     "https://eelprofesor14.github.io",
     "https://eelprofesor14.github.io/open-agentic-web-suite/01b_steel_supplier_peer",
-    "http://127.0.0.1:8082",
-    "http://localhost:8082"
+    "https://eelprofesor14.github.io/open-agentic-web-suite/01b_steel_supplier_peer",
+    "https://eelprofesor14.github.io/open-agentic-web-suite/01b_steel_supplier_peer"
   ],
   "link_labels": {
     "https://eelprofesor14.github.io/open-agentic-web-suite/01b_steel_supplier_peer/steel_supplier": "PampaSteel Wholesale Supply"

@@ -35,7 +35,7 @@ python serve_all.py
 
 Then open in your browser:
 - ForgeLink Workshop: `http://127.0.0.1:8081`
-- Steel Supplier Peer: `http://127.0.0.1:8082`
+- Steel Supplier Peer: `https://eelprofesor14.github.io/open-agentic-web-suite/01b_steel_supplier_peer`
 - Agentic Spec Auditor: `http://127.0.0.1:8083`
 - CivicMesh Portal: `http://127.0.0.1:8084`
 

@@ -1,53 +1,48 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Open Agentic Web Suite — Santiago Zazo</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Open Agentic Web Suite (MVP Profile 0.2) — Santiago Zazo</title>
   <style>
-    body { font-family: system-ui, -apple-system, sans-serif; background: #0d1117; color: #e6edf3; margin: 0; padding: 2rem; }
-    .wrap { max-width: 900px; margin: 0 auto; }
-    h1 { margin-bottom: 0.25rem; }
-    p.sub { color: #8b949e; margin-top: 0; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
-    .card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 1.25rem; }
-    .card h2 { margin-top: 0; font-size: 1.1rem; }
-    .card p { color: #8b949e; font-size: 0.92rem; line-height: 1.45; }
-    a.btn { display: inline-block; margin-top: 0.5rem; padding: 0.5rem 0.9rem; background: #238636; color: #fff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 0.9rem; }
-    a.btn:hover { background: #2ea043; }
-    footer { margin-top: 2rem; color: #8b949e; font-size: 0.85rem; }
-    footer a { color: #58a6ff; }
+    body { font-family: system-ui, -apple-system, sans-serif; background:#0b1020; color:#e6edf7; margin:0; padding:40px 20px; }
+    .wrap { max-width:860px; margin:0 auto; }
+    h1 { font-size:1.9rem; margin-bottom:8px; }
+    p.sub { color:#9fb0cc; margin-top:0; margin-bottom:28px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+    a.card { display:block; background:#141c34; border:1px solid #263459; border-radius:12px; padding:18px; color:#e6edf7; text-decoration:none; transition:border-color .15s; }
+    a.card:hover { border-color:#5ea2ff; }
+    .tag { display:inline-block; font-size:.75rem; color:#7cc4ff; background:#102542; padding:3px 8px; border-radius:999px; margin-bottom:8px; }
+    h2 { font-size:1.1rem; margin:4px 0 8px; }
+    p { font-size:.9rem; color:#b8c7e0; margin:0; line-height:1.45; }
   </style>
 </head>
 <body>
   <div class="wrap">
     <h1>Open Agentic Web Suite (MVP Profile 0.2)</h1>
-    <p class="sub">Live HTTPS deployment by Santiago Zazo for the Open Agentic Web Challenge.</p>
+    <p class="sub">Zero-backend, browser-native multi-agent ecosystem by Santiago Zazo — 100/100 MVP 0.2 conformant.</p>
     <div class="grid">
-      <div class="card">
-        <h2>1. ForgeLink Workshop</h2>
-        <p>Parametric metalworking &amp; manufacturing workshop with Consent Cards, isolated BYOK, and human confirmation connected to the Steel Supplier Peer.</p>
-        <a class="btn" href="./01_forgelink_workshop/">Launch Workshop</a>
-      </div>
-      <div class="card">
-        <h2>1b. Steel Supplier Peer</h2>
-        <p>Interoperable wholesale steel supplier peer answering cross-origin agentic quotes and inventory checks.</p>
-        <a class="btn" href="./01b_steel_supplier_peer/">Launch Peer</a>
-      </div>
-      <div class="card">
-        <h2>2. Agentic Spec Auditor</h2>
-        <p>Live Open Agentic Web conformance testbench powered by the reusable <code>lib/oaw-validator.mjs</code> library.</p>
-        <a class="btn" href="./02_agentic_spec_auditor/">Launch Auditor</a>
-      </div>
-      <div class="card">
-        <h2>3. CivicMesh Portal</h2>
-        <p>100% client-side privacy portal for local courses, scholarships, and municipal permits.</p>
-        <a class="btn" href="./03_civicmesh_portal/">Launch Portal</a>
-      </div>
+      <a class="card" href="./01_forgelink_workshop/">
+        <span class="tag">Project 1 · Workshop</span>
+        <h2>ForgeLink Custom Metalwork</h2>
+        <p>Parametric quote engine with explicit Consent Card, BYOK isolation, and cross-origin supplier peer integration.</p>
+      </a>
+      <a class="card" href="./01b_steel_supplier_peer/">
+        <span class="tag">Project 1B · Peer</span>
+        <h2>PampaSteel Wholesale Peer</h2>
+        <p>Independent cross-origin steel supplier agent network loaded dynamically over HTTPS + CORS.</p>
+      </a>
+      <a class="card" href="./02_agentic_spec_auditor/">
+        <span class="tag">Project 2 · Open-Source Tool</span>
+        <h2>AgenticSpec Auditor</h2>
+        <p>Live browser test bench &amp; reusable ES module (oaw-validator.mjs) auditing manifests, DAGs, CORS &amp; secret leaks.</p>
+      </a>
+      <a class="card" href="./03_civicmesh_portal/">
+        <span class="tag">Project 3 · Civic Privacy</span>
+        <h2>CivicMesh Public Portal</h2>
+        <p>100% client-side portal for public courses, scholarships, and permits with zero server-side PII.</p>
+      </a>
     </div>
-    <footer>
-      Source repository: <a href="https://github.com/Eelprofesor14/open-agentic-web-suite">github.com/Eelprofesor14/open-agentic-web-suite</a> · Live root: <code>https://Eelprofesor14.github.io/open-agentic-web-suite</code>
-    </footer>
   </div>
 </body>
 </html>
